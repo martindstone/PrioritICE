@@ -1,7 +1,32 @@
 const questions = [
-  "How many users are impacted by this incident?",
-  "What portion of the business is affected?",
-  "Is this a business critical configuration item?",
+  {
+    label: "How many users are impacted by this incident?",
+    options: [
+      "0-10 users",
+      "11-50 users",
+      "51-150 users",
+      "151-500 users",
+      "500+ users",
+    ],
+  },
+  {
+    label: "What portion of the business is affected?",
+    options: [
+      "Exchanges",
+      "Quotes",
+      "Clearing",
+      "Analytics",
+      "Indices",
+      "Mortgage",
+    ],
+  },
+  {
+    label: "Is this a business critical configuration item?",
+    options: [
+      "Yes",
+      "No"
+    ],
+  },
 ]
 
 function onSubmit() {
@@ -30,18 +55,30 @@ function onSubmit() {
 function main() {
   const form = document.querySelector('#mainForm')
   console.log(form)
-  form.innerHTML = ''
+  formInnerHTML = ''
   for (const [i, question] of questions.entries()) {
-    form.innerHTML += `
+    formInnerHTML += `
       <div class="form-group">
-        <label for="input${i}">${question}</label>
-        <input type="text" class="form-control" id="input${i}">
+        <label for="input${i}">${question.label}</label>
+        <select class="form-control" name="input${i} id="input${i}">
+    `
+    for (const option of question.options) {
+      formInnerHTML += `
+          <option value="${option}">${option}</option>
+      `
+    }
+    formInnerHTML += `
+        </select>
       </div>
     `
   }
-  form.innerHTML += `
-    <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+  formInnerHTML += `
+    <br>
+    <div align="right">
+      <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+    </div>
   `
+  form.innerHTML = formInnerHTML
   document.querySelector('#submitButton').addEventListener('click', (event) => {
     event.preventDefault()
     onSubmit()
