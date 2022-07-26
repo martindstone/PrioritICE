@@ -22,7 +22,9 @@ function onSubmit() {
     headers: {
       'Content-Type': 'application/json',
     }
-  }).then(response => console.log(response))
+  }).then(response => response.json()).then(data => {
+    console.log(JSON.stringify(data, null, 2))
+  })
 }
 
 function main() {
