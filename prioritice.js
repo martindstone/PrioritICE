@@ -38,9 +38,10 @@ function onSubmit() {
     return
   }
   const postBody = {incident_id}
-  for (input of document.querySelectorAll('#mainform input')) {
+  for (input of document.querySelectorAll('#mainform select')) {
     postBody[input.labels[0].textContent] = input.value
   }
+  console.log(postBody)
   fetch(postUrl, {
     method: 'POST',
     body: JSON.stringify(postBody),
@@ -60,7 +61,7 @@ function main() {
     formInnerHTML += `
       <div class="form-group">
         <label for="input${i}">${question.label}</label>
-        <select class="form-control" name="input${i} id="input${i}">
+        <select class="form-control" name="input${i}" id="input${i}">
     `
     for (const option of question.options) {
       formInnerHTML += `
